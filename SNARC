@@ -1,0 +1,206 @@
+<item mousetag>
+    /1 = "1"
+    /2 = "2"
+    /3 = "3"
+    /4 = "4"
+</item>
+
+<item elephanttag>
+    /1 = "6"
+    /2 = "7"
+    /3 = "8"
+    /4 = "9"
+</item>
+
+<text mousetxt>
+	/items = mousetag
+	/fontstyle = ("Arial",10%)
+	/txbgcolor = (255,255,255)
+	/txcolor = (0,0,0)
+</text>
+
+<text elephanttxt>
+	/items = elephanttag
+	/fontstyle = ("Arial",10%)
+	/txbgcolor = (255,255,255)
+	/txcolor = (0,0,0)
+</text>
+
+<text fixation>
+	/items = ("+")
+	/fontstyle = ("Arial", 40ptc)
+	/txbgcolor = (transparent)
+	/txcolor = (0,0,0)
+</text>
+
+<text practiceinstruction>
+	/hjustify = center
+	/items = ("欢迎来到实验，我们首先进行练习，当您的正确率达到80%，我们会进行正式实验。按任意键继续。")
+	/size = (1000,300)
+	/fontstyle = ("宋体", 24pt)
+	/txcolor = (0,0,0)
+	/txbgcolor = (transparent)
+</text>
+
+<text alerttxt>
+	/hjustify = center
+	/items = ("您的正确率过低，请您认真阅读指导语并确认您理解后，按任意键进入下一次练习。如果您对本实验有疑问，请您联系主试。")
+	/size = (1000,300)
+	/fontstyle = ("宋体", 24pt)
+	/txbgcolor = (transparent)
+	/txcolor = (0,0,0)
+</text>
+
+<text instruction1txt>
+	/hjustify = center
+	/items = ("请将左手和右手的食指分别放在键盘的“A”键和“L”键上；在屏幕的中央会随机出现数字，请判断数字的大小；如果大于五，请按“L”键；如果小于五，请按“A”键。")
+	/size = (1000,300)
+	/fontstyle = ("宋体", 24pt)
+	/txbgcolor = (transparent)
+	/txcolor = (0,0,0)
+</text>
+
+<text instruction2txt>
+	/hjustify = center
+	/items = ("请将左手和右手的食指分别放在键盘的“A”键和“L”键上；在屏幕的中央会随机出现数字，请判断数字的大小；如果大于五，请按“A”键；如果小于五，请按“L”键。")
+	/size = (1000,300)
+	/fontstyle = ("宋体", 24pt)
+	/txbgcolor = (transparent)
+	/txcolor = (0,0,0)
+</text>
+
+
+<text anykeytxt>
+	/items = ("按任意键开始实验")
+	/vposition = 70 pct
+	/fontstyle = ("宋体", 24pt)
+	/txcolor = (0,0,0)
+	/txbgcolor = (transparent)
+</text>
+
+<values>
+    /fixationtimes=0
+</values>
+
+<expressions>
+    /generteramdom=ceil(rand(400,600))
+</expressions>
+
+<trial practiceinstruction>
+	/validresponse = (anyresponse)	
+	/stimulusframes = [1 = practiceinstruction]
+	/recorddata = false
+</trial>
+
+<trial alert>
+	/validresponse = (anyresponse)
+	/stimulusframes = [1 = alerttxt]
+	/recorddata = false
+</trial>
+
+<trial instruction1>
+	/validresponse = (anyresponse)
+	/stimulusframes = [1=instruction1txt,anykeytxt]
+	/recorddata = false
+</trial>
+
+<trial instruction2>
+	/validresponse = (anyresponse)
+	/stimulusframes = [2=instruction2txt,anykeytxt]
+	/recorddata = false
+</trial>
+
+<trial mouse1trial>
+	/pretrialpause = 1000
+    /posttrialpause = 1000
+	/validresponse = ("A","L")
+	/correctresponse = ("A")
+	/ontrialbegin = [values.fixationtimes = expressions.generteramdom]
+    /ontrialbegin = [trial.mouse1trial.insertstimulustime(text.fixation,0)]
+    /ontrialbegin = [trial.mouse1trial.insertstimulustime(text.mousetxt,values.fixationtimes)]
+    /ontrialend = [trial.mouse1trial.clearstimulusframes()]
+    /timeout = 5000
+</trial>
+
+<trial elephant1trial>
+	/pretrialpause = 1000
+    /posttrialpause = 1000
+	/validresponse = ("A","L")
+	/correctresponse = ("L")
+    /ontrialbegin = [values.fixationtimes = expressions.generteramdom]
+    /ontrialbegin = [trial.elephant1trial.insertstimulustime(text.fixation,0)]
+    /ontrialbegin = [trial.elephant1trial.insertstimulustime(text.elephanttxt,values.fixationtimes)]
+    /ontrialend = [trial.elephant1trial.clearstimulusframes()]
+    /timeout = 5000
+</trial>
+
+<trial mouse2trial>
+	/pretrialpause = 1000
+    /posttrialpause = 1000
+	/validresponse = ("A","L")
+	/correctresponse = ("L")
+	/ontrialbegin = [values.fixationtimes = expressions.generteramdom]
+    /ontrialbegin = [trial.mouse2trial.insertstimulustime(text.fixation,0)]
+    /ontrialbegin = [trial.mouse2trial.insertstimulustime(text.mousetxt,values.fixationtimes)]
+    /ontrialend = [trial.mouse2trial.clearstimulusframes()]
+    /timeout = 5000
+</trial>
+
+<trial elephant2trial>
+	/pretrialpause = 1000
+    /posttrialpause = 1000
+	/validresponse = ("A","L")
+	/correctresponse = ("A")
+    /ontrialbegin = [values.fixationtimes = expressions.generteramdom]
+    /ontrialbegin = [trial.elephant2trial.insertstimulustime(text.fixation,0)]
+    /ontrialbegin = [trial.elephant2trial.insertstimulustime(text.elephanttxt,values.fixationtimes)]
+    /ontrialend = [trial.elephant2trial.clearstimulusframes()]
+    /timeout = 5000
+</trial>
+
+**************************************************************************************************************************************************************************
+<block practice1blk>
+	/screencolor = (255,255,255)
+	/blockfeedback = (meanlatency,correct)
+	/trials = [1 = practiceinstruction; 2 = instruction1; 3-18 = noreplacenorepeat(mouse1trial, elephant1trial)]
+    /recorddata = false
+	/branch = [if(block.practice1blk.percentcorrect<80)block.alert1]
+</block>
+
+<block alert1>
+	/screencolor = (255,255,255)
+	/blockfeedback = (meanlatency,correct)
+	/trials = [1 = alert; 2 = practiceinstruction; 3 = instruction1; 4-19 = noreplacenorepeat(mouse1trial, elephant1trial)]
+    /branch = [if(block.alert1.percentcorrect<80)block.alert1]
+</block>
+
+<block practice2blk>
+	/screencolor = (255,255,255)
+	/blockfeedback = (meanlatency,correct)
+	/trials = [1 = practiceinstruction; 2 = instruction2; 3-18 = noreplacenorepeat(mouse2trial, elephant2trial)]
+    /recorddata = false
+	/branch = [if(block.practice2blk.percentcorrect<80)block.alert2]
+</block>
+
+<block alert2>
+	/screencolor = (255,255,255)
+	/blockfeedback = (meanlatency,correct)
+	/trials = [1 = alert; 2 = practiceinstruction; 3 = instruction1; 4-19 = noreplacenorepeat(mouse1trial, elephant1trial)]
+    /branch = [if(block.alert2.percentcorrect<80)block.alert2]
+</block>
+
+<block itg1blk>
+	/screencolor = (255,255,255)
+	/blockfeedback = (meanlatency,correct)
+	/trials = [1 = instruction1; 2-41 = noreplacenorepeat(mouse1trial, elephant1trial)]
+</block>
+
+<block itg2blk>
+	/screencolor = (255,255,255)
+    /blockfeedback = (meanlatency,correct)
+    /trials = [1 = instruction2; 2-41 = noreplacenorepeat(mouse2trial, elephant2trial)]
+</block>
+
+<expt>
+    /blocks = [1 = noreplace(practice1blk, practice2blk); 2-3 = noreplace(itg1blk, itg2blk)]
+</expt>
